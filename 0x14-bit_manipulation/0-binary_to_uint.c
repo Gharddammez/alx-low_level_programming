@@ -13,22 +13,21 @@ unsigned int binary_to_uint(const char *binary)
 {
     int len, i;
     unsigned int result = 0;
-    unsigned int decimalValue = 1;
 
     if (binary == NULL)
         return 0;
 
     len = strlen(binary);
 
-    for (i = (len - 1); i >= 0; i--)
+    for (i = 0; i < len; i++)
     {
         if (binary[i] != '0' && binary[i] != '1')
             return 0;
 
-        if (binary[i] == '1')
-            result += decimalValue;
+        result <<= 1; // Left-shift the result by 1 to make space for the next bit
 
-        decimalValue *= 2;
+        if (binary[i] == '1')
+            result |= 1; // Set the least significant bit to 1
     }
 
     return result;
